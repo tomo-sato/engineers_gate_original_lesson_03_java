@@ -67,6 +67,7 @@ public class DbManager implements AutoCloseable {
 	/**
 	 * クローズ処理。
 	 */
+	@Override
 	public void close() {
 		if (this.conn != null) {
 			try {
