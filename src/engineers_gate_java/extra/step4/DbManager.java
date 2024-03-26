@@ -42,12 +42,12 @@ public class DbManager implements AutoCloseable {
 	 */
 	public void insert(List<Members> membersList) {
 		// トランザクションを開始
-		EntityTransaction transaction = entityManager.getTransaction();
+		EntityTransaction transaction = this.entityManager.getTransaction();
 		transaction.begin();
 
 		for (Members members : membersList) {
 			// エンティティを保存
-			entityManager.persist(members);
+			this.entityManager.persist(members);
 		}
 
 		// トランザクションをコミット
@@ -59,14 +59,14 @@ public class DbManager implements AutoCloseable {
 	 */
 	@Override
 	public void close() {
-		if (entityManager != null) {
+		if (this.entityManager != null) {
 			// EntityManagerをクローズ
-			entityManager.close();
+			this.entityManager.close();
 		}
 
-		if (entityManagerFactory != null) {
+		if (this.entityManagerFactory != null) {
 			// EntityManagerFactoryをクローズ
-			entityManagerFactory.close();
+			this.entityManagerFactory.close();
 		}
 	}
 }
