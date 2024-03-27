@@ -45,13 +45,21 @@ public class DbManager implements AutoCloseable {
 		EntityTransaction transaction = this.entityManager.getTransaction();
 		transaction.begin();
 
-		for (Members members : membersList) {
-			// エンティティを保存
-			this.entityManager.persist(members);
-		}
+		try {
+			for (Members members : membersList) {
+				// エンティティを保存
+				this.entityManager.persist(members);
+			}
 
-		// トランザクションをコミット
-		transaction.commit();
+			// トランザクションをコミット
+			transaction.commit();
+
+		} catch (Exception e) {
+			System.err.println("メンバー登録処理でエラーが発生しました。：" + e.getMessage());
+
+			// エラーが発生したらロールバック
+			transaction.rollback();
+		}
 	}
 
 	/**
